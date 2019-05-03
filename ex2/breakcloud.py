@@ -7,12 +7,11 @@ def breakcloud(cloud):
     creates a file with the name 'plain.txt' that stores the current text that is encrypted in the cloud.
     you can use only the Read/Write interfaces of Cloud (do not use its internal variables.)
     """
-    cipher_text = bytearray()
     plain_text = bytearray()
     i = 0
     while True:
         try:
-            plain_text.append(cloud.Write(i, "\x00") ^ cloud.Read(i))
+            plain_text.append(ord(cloud.Write(i, '\x00')) ^ ord(cloud.Read(i)))
         except IndexError:
             break
         i += 1
