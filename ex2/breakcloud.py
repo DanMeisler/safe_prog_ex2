@@ -8,13 +8,8 @@ def breakcloud(cloud):
     you can use only the Read/Write interfaces of Cloud (do not use its internal variables.)
     """
     plain_text = bytearray()
-    i = 0
-    while True:
-        try:
-            plain_text.append(ord(cloud.Write(i, '\x00')) ^ ord(cloud.Read(i)))
-        except IndexError:
-            break
-        i += 1
+    for i in range(cloud.Length()):
+        plain_text.append(ord(cloud.Write(i, '\x00')) ^ ord(cloud.Read(i)))
 
     with open("plain.txt", "wb") as f:
         f.write(plain_text)
